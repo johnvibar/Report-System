@@ -1,0 +1,6 @@
+{
+  "sideEffects": false,
+  "module": "./index.js",
+  "main": "../node/typeOverloads/index.js",
+  "types": "./index.d.ts"
+}
