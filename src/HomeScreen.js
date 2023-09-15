@@ -43,15 +43,9 @@ const HomeScreen = () => {
     const [poDetails, setPoDetails] = useState([])
 
     const airtable_api_key = 'patsRqdsRWiw3Uwee.8e2ab165376c5a06db88f02ed66b08e7d2ff20c1ce6080495c5f1ef958fd65f4';
-    const oauth_client_id = '6195b9e4-3576-4a34-8268-ce2ee4cf9222';
-    const oauth_client_secret = 'fd45e0554b5a9b726085d685f6944c02a38839a864d68bf4941bc61ae7781ed4';
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen: GridEventListener<'rowClick'> = (
-        params, // GridRowParams
-        event, // MuiEvent<React.MouseEvent<HTMLElement>>
-        details, // GridCallbackDetails
-    ) => {
+    const handleOpen: GridEventListener<'rowClick'> = (params) => {
         setPoDetails(params.row.PODetails)
         console.log(`Item "${params.row.CustomerPO}" clicked`)
         setOpen(true);
