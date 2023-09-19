@@ -6,11 +6,13 @@ import OrderDetailScreen from "./components/pages/OrderDetail";
 import { AuthToken } from "./auth/AuthToken";
 import { Redirect } from 'react-router-dom';
 import "./App.css";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const [token] = useState(AuthToken.get());
   return (
     <Router>
+      <ToastContainer autoClose={3000} limit={3} pauseOnFocusLoss={false} />
       <Switch>
         <Route
           exact

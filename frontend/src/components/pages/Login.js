@@ -5,7 +5,14 @@ import { useHistory } from 'react-router-dom';
 import { AuthToken } from "../../auth/AuthToken";
 import logo from '../../assets/images/logo.png';
 
+import { toast } from "react-toastify";
+
 export default function SignIn() {
+
+  const displayLoginNotification = () => {
+    toast.info("Login Success"); // default type 
+  };
+
   const history = useHistory();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,16 +30,17 @@ export default function SignIn() {
           Authorization: `Bearer ${token}`
         }
       });
+      toast.success("Successfully Logged in!", {theme: 'colored'});
       AuthToken.setCurrentUser(currentUser.data.name);
       history.push('/home');
     } catch (error) {
-      console.log('Fatal Error')
+      toast.warn("User Info is not correct!", {theme: 'colored'});
     }
   };
 
   useEffect(() => {
     const user = AuthToken.get();
-    if(user){
+    if (user) {
       history.push('/home');
     }
   }, [])
