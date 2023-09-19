@@ -23,7 +23,7 @@ export default function SignIn() {
           Authorization: `Bearer ${token}`
         }
       });
-      AuthToken.setCurrentUser(currentUser.data);
+      AuthToken.setCurrentUser(currentUser.data.name);
       history.push('/home');
     } catch (error) {
       console.log('Fatal Error')

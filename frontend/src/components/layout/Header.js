@@ -5,6 +5,8 @@ import { Typography } from "@mui/material";
 
 const Header = () => {
 
+    const userName = AuthToken.getCurrentUser();
+
     const history = useHistory();
     const handleLogout = () => {
         AuthToken.set('');
@@ -15,7 +17,7 @@ const Header = () => {
     return (
         <>
         <Stack sx={{ position: 'absolute', top: 20, right: 50 }} alignItems="center" justifyContent="center">
-            <Typography alignItems="center">Kylen</Typography>
+            <Typography alignItems="center">{userName}</Typography>
             <Button sx={{ fontSize: 12, color: "#000000", textDecoration: 'underline' }} onClick={handleLogout}>
                 Log Out
             </Button>
