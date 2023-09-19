@@ -22,7 +22,6 @@ export default function App() {
           }}
         />
         <Route path="/login" component={Login} token={token} render={(props) => {
-          if (props.token) return <Redirect to="/home" />
           return <component {...props} />
         }} />
         <Route exact path="/home" component={Home} token={token} render={(props) => {

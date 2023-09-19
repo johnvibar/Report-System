@@ -14,9 +14,6 @@
     "aws-postbuild": "npm run build && cd frontend && npm install && npm run build"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.9",
     "@types/bcrypt": "^5.0.0",
     "@types/geoip-lite": "^1.4.1",
     "@types/lodash": "^4.14.191",

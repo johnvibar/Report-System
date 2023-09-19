@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from 'axios';
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useHistory } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { AuthToken } from "../../auth/AuthToken";
 import logo from '../../assets/images/logo.png';
-import { grey } from "@mui/material/colors";
 
 export default function SignIn() {
   const history = useHistory();
@@ -32,6 +31,13 @@ export default function SignIn() {
       console.log('Fatal Error')
     }
   };
+
+  useEffect(() => {
+    const user = AuthToken.get();
+    if(user){
+      history.push('/home');
+    }
+  }, [])
 
   return (
     <Box sx={{ bgcolor: "#84B5FF" }} width="100wh" minHeight="100vh">

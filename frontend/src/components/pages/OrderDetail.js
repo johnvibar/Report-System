@@ -7,7 +7,6 @@ import axios from "axios";
 import { AuthToken } from "../../auth/AuthToken";
 import Header from "../layout/Header";
 import logo from '../../assets/images/logo.png';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const OrderDetailScreen = (props) => {
   const history = useHistory();
@@ -16,7 +15,7 @@ const OrderDetailScreen = (props) => {
   const [deliveryData, setDeliveryData] = useState([]);
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen: GridEventListener<'rowClick'> = (params) => {
+  const handleOpen = (params) => {
     // setPoDetails(params.row.PODetails)
     console.log(`Item "${params.row.CustomerPO}" clicked`)
     setOpen(true);
@@ -55,6 +54,7 @@ const OrderDetailScreen = (props) => {
       }
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -70,7 +70,6 @@ const OrderDetailScreen = (props) => {
       <Stack sx={{ width: "100%", paddingTop: "0px", paddingBottom: "20px", paddingRight: "20px", paddingLeft: "20px" }}>
         <Box sx={{ height: 820, width: "100%" }}>
           <Link to="/Home" >
-            {/* <ArrowBackIcon /> */}
             <Button sx={{ position: "absolute", top: 20, left: 50, color: "#000000", fontSize: 18 }}>
               GO Back
             </Button>

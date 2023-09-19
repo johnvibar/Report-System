@@ -33,6 +33,7 @@ const HomeScreen = () => {
           });
 
           setTableData(response.data);
+
         } catch (error) {
           console.error(error);
         } finally {
@@ -41,13 +42,14 @@ const HomeScreen = () => {
       }
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-    { isLoading && (
-      <CircularProgress sx={{ position: "absolute", top: "50%", left: "50%", zIndex: 100 }} />
-    )}
+      {isLoading && (
+        <CircularProgress sx={{ position: "absolute", top: "50%", left: "50%", zIndex: 100 }} />
+      )}
       <Header />
       <Stack alignItems="center" justifyContent="center" direction="row" >
         <img src={logo} alt="Tipa" width={120} />
@@ -56,8 +58,8 @@ const HomeScreen = () => {
       <Stack sx={{ width: "100%", paddingTop: "0px", paddingBottom: "20px", paddingRight: "20px", paddingLeft: "20px" }}>
         <Box sx={{ height: 820, width: "100%" }}>
           <DataGrid
-            rows={tableData}
             columns={orderColumns}
+            rows={tableData}
             pageSize={25}
             onRowClick={handleOpenDetailPage}
             {...tableData}
