@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import axios from 'axios';
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useHistory } from 'react-router-dom';
-import { toast } from "react-toastify";
 import { AuthToken } from "../../auth/AuthToken";
 import logo from '../../assets/images/logo.png';
 
@@ -24,8 +23,7 @@ export default function SignIn() {
           Authorization: `Bearer ${token}`
         }
       });
-      toast.success("Successfully logged in", { theme: 'colored' })
-      AuthToken.setCurrentUser(currentUser);
+      AuthToken.setCurrentUser(currentUser.data);
       history.push('/home');
     } catch (error) {
       console.log('Fatal Error')

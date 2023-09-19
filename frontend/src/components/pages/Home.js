@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridOverlay } from "@mui/x-data-grid";
 import { Box, Stack, Typography, CircularProgress } from "@mui/material";
 import { orderColumns } from "../../constants/column.constants";
 import axios from "axios";
@@ -17,6 +17,10 @@ const HomeScreen = () => {
   };
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const CustomNoRowsOverlay = () => {
+    return <GridOverlay />;
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -61,6 +65,9 @@ const HomeScreen = () => {
             columns={orderColumns}
             rows={tableData}
             pageSize={25}
+            slots={{
+              noRowsOverlay: CustomNoRowsOverlay,
+            }}
             onRowClick={handleOpenDetailPage}
             {...tableData}
             sx={{ backgroundColor: "#ffffff", borderRadius: "30px", paddingTop: "34px", paddingBottom: "22px", paddingRight: "28px", paddingLeft: "28px" }}

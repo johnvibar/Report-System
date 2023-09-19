@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom';
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridOverlay } from "@mui/x-data-grid";
 import { Box, Stack, Button, Typography, Modal, CircularProgress } from "@mui/material";
 import { poDetailColumns, deliveryColumns } from "../../constants/column.constants";
 import axios from "axios";
@@ -21,6 +21,10 @@ const OrderDetailScreen = (props) => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
+
+  const CustomNoRowsOverlay = () => {
+    return <GridOverlay />;
+  }
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -80,6 +84,9 @@ const OrderDetailScreen = (props) => {
             columns={poDetailColumns}
             pageSize={25}
             onRowClick={handleOpen}
+            slots={{
+              noRowsOverlay: CustomNoRowsOverlay,
+            }}
             {...tableData}
           />
         </Box>
@@ -106,6 +113,9 @@ const OrderDetailScreen = (props) => {
             rows={deliveryData}
             columns={deliveryColumns}
             pageSize={25}
+            slots={{
+              noRowsOverlay: CustomNoRowsOverlay,
+            }}
             {...deliveryData}
           />
         </Box>
