@@ -37,7 +37,6 @@ const HomeScreen = () => {
           });
 
           // Total Price column customize
-          console.log(response.data);
           let data = []
           for (let i = 0; i < response.data.length; i++) {
             const totalQtySo = response.data[i].TotalQtySo !== null ? "$" + response.data[i].TotalQtySo : "";

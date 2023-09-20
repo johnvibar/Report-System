@@ -6,7 +6,7 @@ import Error400 from '../errors/Error400';
 class DeliveryTable {
   static async find() {
 
-    const allRecords : string[] = [];
+    const allRecords : Array<any> = [];
     let offset = undefined;
     let sendRecords;
 
