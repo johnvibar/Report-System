@@ -35,8 +35,19 @@ const HomeScreen = () => {
               Authorization: `Bearer ${token}`
             }
           });
-                    
-          setTableData(response.data);
+
+          // Total Price column customize
+          console.log(response.data);
+          let data = []
+          for (let i = 0; i < response.data.length; i++) {
+            const totalQtySo = response.data[i].TotalQtySo !== null ? "$" + response.data[i].TotalQtySo : "";
+            data.push({
+              ...response.data[i],
+              "TotalQtySo": totalQtySo
+            })
+          }
+
+          setTableData(data);
 
         } catch (error) {
           console.error(error);

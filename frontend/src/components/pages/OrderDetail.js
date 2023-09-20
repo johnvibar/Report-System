@@ -47,15 +47,15 @@ const OrderDetailScreen = (props) => {
           });
 
           // QTY So column customize
-          let data = []          
+          let orderData = []          
           for(let i = 0; i < response.data.length ; i++) {
-            data.push({
+            orderData.push({
               ...response.data[i],
               "QtySo": response.data[i].QtySo + response.data[i].Units
             })
           }
 
-          setTableData(data);
+          setTableData(orderData);
           setDeliveryData(deliveryData.data);
         } catch (error) {
           console.error(error);

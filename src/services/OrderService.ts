@@ -4,7 +4,7 @@ import Error400 from '../errors/Error400';
 class OrderService {
   static async find() {
     const records = await OrderTable.find();
-
+    
     if (!records || !records.length) {
       new Error400('Not Exist');
     }
@@ -13,10 +13,11 @@ class OrderService {
       records,
       'CustomerPO',
     );
+
     const orders = Object.entries(ordersByGroup).map(
       ([key, value]: [any, any]) => {
         const sumOfQty = value.reduce((sum, row) => {
-          return sum + row.QtySo;
+          return sum + row.Price;
         }, 0);
 
         return {
@@ -55,6 +56,7 @@ class OrderService {
       if (!result[currentValue[key]]) {
         result[currentValue[key]] = [];
       }
+      
       result[currentValue[key]].push(currentValue);
 
       // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
