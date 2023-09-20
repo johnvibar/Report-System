@@ -16,8 +16,6 @@ const OrderDetailScreen = (props) => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = (params) => {
-    // setPoDetails(params.row.PODetails)
-    console.log(`Item "${params.row.CustomerPO}" clicked`)
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
