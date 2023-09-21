@@ -17,6 +17,7 @@ const OrderDetailScreen = (props) => {
   const [matchedResult, setMatchedResult] = useState([]);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [modalOrder, setModalOrder] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,6 +81,7 @@ const OrderDetailScreen = (props) => {
   }, [history, id]);
 
   const handleOpen = (params) => {
+    setModalOrder(params.row)
     setOpen(true);
     const matchedDeliveryData = deliveryData.filter(
       d => d.CatalogNumber === params.row.CatalogNumber &&
@@ -106,6 +108,7 @@ const OrderDetailScreen = (props) => {
       };
     });
     setMatchedResult(resultWithTotalAmount);
+    console.log(matchedDeliveryData);
   };
 
   const handleClose = () => setOpen(false);
@@ -153,19 +156,30 @@ const OrderDetailScreen = (props) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '50%',
+          width: '80%',
           height: 600,
           bgcolor: 'background.paper',
           p: 4,
           borderRadius: "10px"
         }} >
           <DataGrid
+            autoHeight
+            rows={[modalOrder]}
+            columns={poDetailColumns}
+            slots={{
+              noRowsOverlay: CustomNoRowsOverlay,
+            }}
+            hideFooter={true}
+          />
+          <DataGrid
+            autoHeight
             rows={matchedResult}
             columns={deliveryColumns}
             pageSize={25}
             slots={{
               noRowsOverlay: CustomNoRowsOverlay,
             }}
+            hideFooter={true}
           />
         </Box>
       </Modal>

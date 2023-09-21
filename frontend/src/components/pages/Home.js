@@ -69,6 +69,7 @@ const HomeScreen = () => {
             columns={orderColumns}
             rows={tableData}
             pageSize={25}
+            pagination={false}
             slots={{
               noRowsOverlay: CustomNoRowsOverlay,
             }}
