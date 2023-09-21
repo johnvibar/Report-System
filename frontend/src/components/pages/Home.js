@@ -39,7 +39,13 @@ const HomeScreen = () => {
 
         const data = response.data.map(item => ({
           ...item,
-          TotalQtySo: item.TotalQtySo !== null ? `$${item.TotalQtySo}` : "",
+          TotalQtySo: item.TotalQtySo !== null ?
+            parseFloat(item.TotalQtySo).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }) : "",
         }));
 
         setTableData(data);
@@ -69,7 +75,6 @@ const HomeScreen = () => {
             columns={orderColumns}
             rows={tableData}
             pageSize={25}
-            pagination={false}
             slots={{
               noRowsOverlay: CustomNoRowsOverlay,
             }}

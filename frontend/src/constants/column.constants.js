@@ -1,7 +1,7 @@
 export const orderColumns = [
   { id: 1, field: "customerPO", headerName: "PO", width: 161 },
   { id: 2, field: "customerPODate", headerName: "PO Date", width: 188 },
-  { id: 3, field: "TotalQtySo", headerName: "Price" },
+  { id: 3, field: "TotalQtySo", headerName: "PO Value" },
 ];
 
 export const poDetailColumns = [
@@ -27,13 +27,9 @@ export const poDetailColumns = [
     headerName: "Updated Delivery D.",
     width: 196,
   },
-  // { id: 1, field: "Price", headerName: "Price", width: 100 },
 ];
 
 export const deliveryColumns = [
-  // { field: "SONumber", headerName: "SO Nmuber", width: 200 },
-  // { field: "CatalogNumber", headerName: "Catalog Nmuber", width: 200 },
-  // { field: "ConverterPONumber", headerName: "Converter PO Nmuber", width: 200 },
   { id: 1, field: "DeliveryDate", headerName: "Delivery Date", width: 200 },
   { id: 2, field: "AmountDelivered", headerName: "Amount Deliverd", width: 200 },
   { id: 3, field: "AccumulatedAmount", headerName: "Accumulated Total Delivered", width: 200 },
