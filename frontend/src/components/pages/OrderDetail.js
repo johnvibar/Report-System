@@ -108,7 +108,6 @@ const OrderDetailScreen = (props) => {
       };
     });
     setMatchedResult(resultWithTotalAmount);
-    console.log(matchedDeliveryData);
   };
 
   const handleClose = () => setOpen(false);
@@ -173,6 +172,11 @@ const OrderDetailScreen = (props) => {
           />
           <DataGrid
             autoHeight
+            initialState={{
+              sorting: {
+                sortModel: [{ field: 'DeliveryDate', sort: 'asc' }],
+              },
+            }}
             rows={matchedResult}
             columns={deliveryColumns}
             pageSize={25}
