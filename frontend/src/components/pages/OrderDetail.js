@@ -56,7 +56,7 @@ const OrderDetailScreen = (props) => {
             }
           }
 
-          const qtySo = order.QtySo + order.Units;
+          const qtySo = order.QtySo + " " + order.Units;
           const balanceDeliver = order.QtySo - amountDelivered;
 
           return {
