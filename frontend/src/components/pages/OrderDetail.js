@@ -83,9 +83,29 @@ const OrderDetailScreen = (props) => {
     setOpen(true);
     const matchedDeliveryData = deliveryData.filter(
       d => d.CatalogNumber === params.row.CatalogNumber &&
-      d.ConverterPONmuber === params.row.ConverterPONmuber
+        d.ConverterPONmuber === params.row.ConverterPONmuber
     );
-    setMatchedResult(matchedDeliveryData);
+
+    // Calculate the Accumlated Amount for each entry in matchedDeliveryData
+    const resultWithTotalAmount = matchedDeliveryData.map(row => {
+      const filteredDeliveries = matchedDeliveryData.filter(delivery => {
+        const deliveryDate = new Date(delivery['DeliveryDate']);
+        const currentRowDeliveryDate = new Date(row['DeliveryDate']);
+        return deliveryDate <= currentRowDeliveryDate;
+      });
+
+      // Calculate the sum of 'amount' in filteredDeliveries
+      const accumulatedAmount = filteredDeliveries.reduce((sum, delivery) => {
+        return sum + delivery.AmountDelivered; // Assuming the property name is 'amount'
+      }, 0);
+
+      // Add the new property 'AccumulatedAmount' to the current row
+      return {
+        ...row,
+        AccumulatedAmount: accumulatedAmount
+      };
+    });
+    setMatchedResult(resultWithTotalAmount);
   };
 
   const handleClose = () => setOpen(false);

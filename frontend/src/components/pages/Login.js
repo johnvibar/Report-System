@@ -8,11 +8,7 @@ import { toast } from "react-toastify";
 
 export default function SignIn() {
   const history = useHistory();
-
-  const displayLoginNotification = () => {
-    toast.info("Login Success"); // default type 
-  };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

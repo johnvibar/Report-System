@@ -36,5 +36,5 @@ export const deliveryColumns = [
   // { field: "ConverterPONumber", headerName: "Converter PO Nmuber", width: 200 },
   { id: 1, field: "DeliveryDate", headerName: "Delivery Date", width: 200 },
   { id: 2, field: "AmountDelivered", headerName: "Amount Deliverd", width: 200 },
-  { id: 3, field: "OrderItemID", headerName: "Accumulated Total Delivered", width: 200 },
+  { id: 3, field: "AccumulatedAmount", headerName: "Accumulated Total Delivered", width: 200 },
 ];
