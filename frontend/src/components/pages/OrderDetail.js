@@ -2,71 +2,95 @@ import React, { useState, useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom';
 import { DataGrid, GridOverlay } from "@mui/x-data-grid";
 import { Box, Stack, Button, Typography, Modal, CircularProgress } from "@mui/material";
-import { poDetailColumns, deliveryColumns } from "../../constants/column.constants";
 import axios from "axios";
 import { AuthToken } from "../../auth/AuthToken";
 import Header from "../layout/Header";
 import logo from '../../assets/images/logo.png';
+import { poDetailColumns, deliveryColumns } from "../../constants/column.constants";
 
 const OrderDetailScreen = (props) => {
   const history = useHistory();
-  const [id] = useState(props.match.params.id);
+  const id = props.match.params.id;
+
   const [tableData, setTableData] = useState([]);
   const [deliveryData, setDeliveryData] = useState([]);
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = (params) => {
-    setOpen(true);
-  };
-  const handleClose = () => setOpen(false);
-
-  const CustomNoRowsOverlay = () => {
-    return <GridOverlay />;
-  }
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [matchedResult, setMatchedResult] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       const token = AuthToken.get();
       if (!token) {
         history.push('/login');
-      } else {
-        try {
-          setIsLoading(true);
-          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/order/${id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
+        return;
+      }
 
-          const deliveryData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/delivery`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
+      try {
+        const [orderResponse, deliveryResponse] = await Promise.all([
+          axios.get(`${process.env.REACT_APP_BACKEND_URL}/order/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          axios.get(`${process.env.REACT_APP_BACKEND_URL}/delivery`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+        ]);
 
-          // QTY So column customize
-          let orderData = []          
-          for(let i = 0; i < response.data.length ; i++) {
-            orderData.push({
-              ...response.data[i],
-              "QtySo": response.data[i].QtySo + response.data[i].Units
-            })
+        const deliveryData = deliveryResponse.data;
+        const orderData = orderResponse.data.map(order => {
+          let amountDelivered = 0;
+          let maxDeliveryDate = null;
+
+          for (const delivery of deliveryData) {
+            if (
+              order.CatalogNumber === delivery.CatalogNumber &&
+              order.ConverterPONmuber === delivery.ConverterPONmuber
+            ) {
+              amountDelivered += delivery.AmountDelivered;
+
+              const currentDeliveryDate = delivery.DeliveryDate;
+              if (maxDeliveryDate === null || currentDeliveryDate > maxDeliveryDate) {
+                maxDeliveryDate = currentDeliveryDate;
+              }
+            }
           }
 
-          setTableData(orderData);
-          setDeliveryData(deliveryData.data);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setIsLoading(false);
-        }
+          const qtySo = order.QtySo + order.Units;
+          const balanceDeliver = order.QtySo - amountDelivered;
+
+          return {
+            ...order,
+            QtySo: qtySo,
+            AmountDelivered: amountDelivered,
+            BalanceToDeliver: balanceDeliver,
+            UpdatedDeliveryDate: maxDeliveryDate
+          };
+        });
+
+        setTableData(orderData);
+        setDeliveryData(deliveryData);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
+
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [history, id]);
+
+  const handleOpen = (params) => {
+    setOpen(true);
+    const matchedDeliveryData = deliveryData.filter(
+      d => d.CatalogNumber === params.row.CatalogNumber &&
+      d.ConverterPONmuber === params.row.ConverterPONmuber
+    );
+    setMatchedResult(matchedDeliveryData);
+  };
+
+  const handleClose = () => setOpen(false);
+
+  const CustomNoRowsOverlay = () => <GridOverlay />;
 
   return (
     <>
@@ -94,7 +118,6 @@ const OrderDetailScreen = (props) => {
             slots={{
               noRowsOverlay: CustomNoRowsOverlay,
             }}
-            {...tableData}
           />
         </Box>
       </Stack>
@@ -117,18 +140,15 @@ const OrderDetailScreen = (props) => {
           borderRadius: "10px"
         }} >
           <DataGrid
-            rows={deliveryData}
+            rows={matchedResult}
             columns={deliveryColumns}
             pageSize={25}
             slots={{
               noRowsOverlay: CustomNoRowsOverlay,
             }}
-            {...deliveryData}
           />
         </Box>
       </Modal>
-
-
     </>
   );
 };

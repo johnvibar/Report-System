@@ -4,37 +4,39 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useHistory } from 'react-router-dom';
 import { AuthToken } from "../../auth/AuthToken";
 import logo from '../../assets/images/logo.png';
-
 import { toast } from "react-toastify";
 
 export default function SignIn() {
+  const history = useHistory();
 
   const displayLoginNotification = () => {
     toast.info("Login Success"); // default type 
   };
 
-  const history = useHistory();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
     try {
-      let token = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/sign-in`, data, {
+      const { data: token } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/sign-in`, data, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      token = token.data;
+
       AuthToken.set(token);
-      const currentUser = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/me`, {
+
+      const { data: currentUser } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/me`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      toast.success("Successfully Logged in!", {theme: 'colored'});
-      AuthToken.setCurrentUser(currentUser.data.name);
+
+      toast.success("Successfully Logged in!", { theme: 'colored' });
+      AuthToken.setCurrentUser(currentUser.name);
       history.push('/home');
     } catch (error) {
-      toast.warn("User Info is not correct!", {theme: 'colored'});
+      toast.warn("User Info is not correct!", { theme: 'colored' });
     }
   };
 
@@ -43,7 +45,7 @@ export default function SignIn() {
     if (user) {
       history.push('/home');
     }
-  }, [])
+  }, [history]);
 
   return (
     <Box sx={{ bgcolor: "#84B5FF" }} width="100wh" minHeight="100vh">
@@ -67,8 +69,7 @@ export default function SignIn() {
           justifyContent: 'center',
           p: 2,
           bgcolor: '#00BCDD'
-        }}
-        >
+        }}>
           <img src={logo} alt="Tipa" width={120} />
         </Box>
         <Box sx={{
@@ -78,8 +79,7 @@ export default function SignIn() {
           bgcolor: '#FFFFFF',
           p: theme => theme.spacing(3, 4),
           gap: theme => theme.spacing(3)
-        }}
-        >
+        }}>
           <Typography variant="h4" sx={{ color: '#00BCDD', fontWeight: 'bold', textAlign: 'center' }}>
             Welcome to TIPA Customer dashboard
           </Typography>

@@ -4,7 +4,7 @@ import Error400 from '../errors/Error400';
 class OrderService {
   static async find() {
     const records = await OrderTable.find();
-    
+
     if (!records || !records.length) {
       new Error400('Not Exist');
     }
@@ -17,7 +17,7 @@ class OrderService {
     const orders = Object.entries(ordersByGroup).map(
       ([key, value]: [any, any]) => {
         const sumOfQty = value.reduce((sum, row) => {
-          return sum + row.Price;
+          return sum + (row.Price ? row.Price : 0);
         }, 0);
 
         return {

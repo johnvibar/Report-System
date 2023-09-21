@@ -11,53 +11,47 @@ import logo from '../../assets/images/logo.png';
 const HomeScreen = () => {
   const history = useHistory();
   const [tableData, setTableData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOpenDetailPage = (params) => {
     history.push(`/detail/${params.id}`);
   };
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const CustomNoRowsOverlay = () => {
     return <GridOverlay />;
   }
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       const token = AuthToken.get();
       if (!token) {
         history.push('/login');
-      } else {
-        try {
-          setIsLoading(true);
-          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/order`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-
-          // Total Price column customize
-          let data = []
-          for (let i = 0; i < response.data.length; i++) {
-            const totalQtySo = response.data[i].TotalQtySo !== null ? "$" + response.data[i].TotalQtySo : "";
-            data.push({
-              ...response.data[i],
-              "TotalQtySo": totalQtySo
-            })
-          }
-
-          setTableData(data);
-
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setIsLoading(false);
-        }
+        return;
       }
-    }
+
+      try {
+        setIsLoading(true);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/order`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = response.data.map(item => ({
+          ...item,
+          TotalQtySo: item.TotalQtySo !== null ? `$${item.TotalQtySo}` : "",
+        }));
+
+        setTableData(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [history]);
 
   return (
     <>
@@ -79,7 +73,6 @@ const HomeScreen = () => {
               noRowsOverlay: CustomNoRowsOverlay,
             }}
             onRowClick={handleOpenDetailPage}
-            {...tableData}
             sx={{ backgroundColor: "#ffffff", borderRadius: "30px", paddingTop: "34px", paddingBottom: "22px", paddingRight: "28px", paddingLeft: "28px" }}
           />
         </Box>
