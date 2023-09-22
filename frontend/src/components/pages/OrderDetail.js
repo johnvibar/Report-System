@@ -55,13 +55,10 @@ const OrderDetailScreen = (props) => {
               }
             }
           }
-
-          const qtySo = order.QtySo + " " + order.Units;
           const balanceDeliver = order.QtySo - amountDelivered;
 
           return {
             ...order,
-            QtySo: qtySo,
             AmountDelivered: amountDelivered,
             BalanceToDeliver: balanceDeliver,
             UpdatedDeliveryDate: maxDeliveryDate
