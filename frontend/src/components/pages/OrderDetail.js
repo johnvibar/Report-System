@@ -37,6 +37,10 @@ const OrderDetailScreen = (props) => {
     }
   }
 
+  const [filterModel, setFilterModel] = React.useState({
+    items: [],
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       const token = AuthToken.get();
@@ -168,9 +172,11 @@ const OrderDetailScreen = (props) => {
                 onMouseLeave: handleRowLeaver
               }
             }}
+            filterModel={filterModel}
+            onFilterModelChange={(newFilterModel) => setFilterModel(newFilterModel)}
           />
         </Box>
-        <Button sx={{ fontSize: 12, color: "#000000", position: 'absolute', top: 90, right: 50 }} onClick={() => window.location.reload(false)}>
+        <Button sx={{ fontSize: 12, color: "#000000", position: 'absolute', top: 90, right: 50 }} onClick={() => setFilterModel({ items: [] })}>
           Clear All Filters
         </Button>
       </Stack>
