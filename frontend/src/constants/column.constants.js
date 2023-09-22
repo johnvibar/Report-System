@@ -31,7 +31,7 @@ export const orderColumns = [
 ];
 
 export const poDetailColumns = [
-  { id: 1, field: "CustomerPO", headerName: "PO Number", width: 143 },
+  { id: 1, field: "CustomerPO", headerName: "Customer PO", width: 143 },
   {
     id: 2, field: "CustomerPODate",
     headerName: "PO Date",
