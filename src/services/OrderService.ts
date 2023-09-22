@@ -26,6 +26,7 @@ class OrderService {
           customerPODate: value[0]['CustomerPODate'],
           TotalQtySo: sumOfQty,
           PODetails: value,
+          customerName: value[0]['CustomerName'],
         };
       },
     );

@@ -14,7 +14,8 @@ export const orderColumns = [
       return date.toLocaleDateString('en-US', options);
     },
   },
-  { id: 3, field: "TotalQtySo", headerName: "PO Value" },
+  {id: 3, field: "customerName", headerName: "Customer Name", width: 200},
+  { id: 4, field: "TotalQtySo", headerName: "PO Value" },
 ];
 
 export const poDetailColumns = [
