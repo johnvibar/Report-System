@@ -21,6 +21,24 @@ const HomeScreen = () => {
     return <GridOverlay />;
   }
 
+  const handleRowOver = (e) => {
+    const row = e.currentTarget;
+    const poColumn = row.querySelector(".not-hover");
+
+    if (poColumn) {
+      poColumn.classList.toggle("hovered");
+    }
+  };
+
+  const handleRowLeaver = (e) => {
+    const row = e.currentTarget;
+    const poColumn = row.querySelector(".hovered");
+
+    if (poColumn) {
+      poColumn.classList.remove("hovered");
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const token = AuthToken.get();
@@ -79,7 +97,20 @@ const HomeScreen = () => {
               noRowsOverlay: CustomNoRowsOverlay,
             }}
             onRowClick={handleOpenDetailPage}
-            sx={{ backgroundColor: "#ffffff", borderRadius: "30px", paddingTop: "34px", paddingBottom: "22px", paddingRight: "28px", paddingLeft: "28px" }}
+            slotProps={{
+              row: {
+                onMouseEnter: handleRowOver,
+                onMouseLeave: handleRowLeaver
+              }
+            }}
+            sx={{
+              backgroundColor: "#ffffff",
+              borderRadius: "30px",
+              padding: "34px 28px 22px 28px",
+              '& .MuiDataGrid-row:hover': {
+                cursor: 'pointer',
+              },
+            }}
           />
         </Box>
       </Stack>

@@ -143,3 +143,9 @@ form span {
 .home-page-title {
   color: #222;
 }
+
+/***    Row Hover    ***/
+.hovered {
+  color: #00BCDD;
+  text-decoration: underline;
+}

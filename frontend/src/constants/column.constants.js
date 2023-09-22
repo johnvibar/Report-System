@@ -1,5 +1,17 @@
 export const orderColumns = [
-  { id: 1, field: "customerPO", headerName: "Customer PO", width: 161 },
+  {
+    id: 1,
+    field: "customerPO",
+    headerName: "Customer PO",
+    width: 161,
+    renderCell: (params) => {
+      return (
+        <div className="not-hover">
+          {params.value}
+        </div>
+      );
+    },
+  },
   {
     id: 2,
     field: 'customerPODate',
@@ -14,7 +26,7 @@ export const orderColumns = [
       return date.toLocaleDateString('en-US', options);
     },
   },
-  {id: 3, field: "customerName", headerName: "Customer Name", width: 200},
+  { id: 3, field: "customerName", headerName: "Customer Name", width: 200 },
   { id: 4, field: "TotalQtySo", headerName: "PO Value" },
 ];
 
@@ -45,8 +57,20 @@ export const poDetailColumns = [
     width: 214,
   },
   { id: 6, field: "QtySo", headerName: "Order QT", width: 129 },
-  {id: 7, field: "Units", headerName: "Units", width: 50},  
-  { id: 8, field: "AmountDelivered", headerName: "Amount Delivered", width: 170 },
+  { id: 7, field: "Units", headerName: "Units", width: 50 },
+  {
+    id: 8,
+    field: "AmountDelivered",
+    headerName: "Amount Delivered",
+    width: 170,
+    renderCell: (params) => {
+      return (
+        <div className="not-hover">
+          {params.value}
+        </div>
+      );
+    },
+  },
   { id: 9, field: "BalanceToDeliver", headerName: "Balance to Deliver", width: 165 },
   {
     id: 10,

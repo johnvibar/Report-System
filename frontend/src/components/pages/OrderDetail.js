@@ -19,6 +19,24 @@ const OrderDetailScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalOrder, setModalOrder] = useState([]);
 
+  const handleRowOver = (e) => {
+    const row = e.currentTarget;
+    const poColumn = row.querySelector(".not-hover");
+
+    if (poColumn) {
+      poColumn.classList.toggle("hovered");
+    }
+  };
+
+  const handleRowLeaver = (e) => {
+    const row = e.currentTarget;
+    const poColumn = row.querySelector(".hovered");
+
+    if (poColumn) {
+      poColumn.classList.remove("hovered");
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const token = AuthToken.get();
@@ -129,13 +147,26 @@ const OrderDetailScreen = (props) => {
             </Button>
           </Link>
           <DataGrid
-            sx={{ backgroundColor: "#ffffff", borderRadius: "30px", paddingTop: "34px", paddingBottom: "22px", paddingRight: "28px", paddingLeft: "28px" }}
+            sx={{
+              backgroundColor: "#ffffff",
+              borderRadius: "30px",
+              padding: "34px 28px 22px 28px",
+              '& .MuiDataGrid-row:hover': {
+                cursor: 'pointer',
+              },
+            }}
             rows={tableData}
             columns={poDetailColumns}
             pageSize={25}
             onRowClick={handleOpen}
             slots={{
               noRowsOverlay: CustomNoRowsOverlay,
+            }}
+            slotProps={{
+              row: {
+                onMouseEnter: handleRowOver,
+                onMouseLeave: handleRowLeaver
+              }
             }}
           />
         </Box>
