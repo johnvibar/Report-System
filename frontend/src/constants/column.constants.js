@@ -1,5 +1,5 @@
 export const orderColumns = [
-  { id: 1, field: "customerPO", headerName: "PO", width: 161 },
+  { id: 1, field: "customerPO", headerName: "Customer PO", width: 161 },
   {
     id: 2,
     field: 'customerPODate',
@@ -19,7 +19,7 @@ export const orderColumns = [
 ];
 
 export const poDetailColumns = [
-  { id: 1, field: "ConverterPONumber", headerName: "PO Number", width: 143 },
+  { id: 1, field: "CustomerPO", headerName: "PO Number", width: 143 },
   {
     id: 2, field: "CustomerPODate",
     headerName: "PO Date",
