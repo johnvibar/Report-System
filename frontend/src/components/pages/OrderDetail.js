@@ -78,12 +78,11 @@ const OrderDetailScreen = (props) => {
             }
           }
           const balanceDeliver = order.QtySo - amountDelivered;
-
           return {
             ...order,
             AmountDelivered: amountDelivered,
             BalanceToDeliver: balanceDeliver,
-            UpdatedDeliveryDate: maxDeliveryDate
+            UpdatedDeliveryDate: maxDeliveryDate,
           };
         });
 

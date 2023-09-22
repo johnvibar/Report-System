@@ -27,7 +27,7 @@ export const orderColumns = [
     },
   },
   { id: 3, field: "customerName", headerName: "Customer Name", width: 200 },
-  { id: 4, field: "TotalQtySo", headerName: "PO Value" },
+  { id: 4, field: "TotalQtySo", headerName: "PO Value", align: 'right' },
 ];
 
 export const poDetailColumns = [
@@ -56,7 +56,12 @@ export const poDetailColumns = [
     headerName: "P.N Description",
     width: 214,
   },
-  { id: 6, field: "QtySo", headerName: "Order QT", width: 129 },
+  {
+    id: 6, field: "QtySo", headerName: "Order QT", width: 129, align: 'right', valueFormatter: (params) => {
+      const formattedQuantity = Number(params.value).toLocaleString();
+      return formattedQuantity;
+    },
+  },
   { id: 7, field: "Units", headerName: "Units", width: 50 },
   {
     id: 8,
@@ -64,14 +69,22 @@ export const poDetailColumns = [
     headerName: "Amount Delivered",
     width: 170,
     renderCell: (params) => {
+      const formattedValue = Number(params.value).toLocaleString();
       return (
         <div className="not-hover">
-          {params.value}
+          {formattedValue}
         </div>
       );
     },
+    align: 'right',
+
   },
-  { id: 9, field: "BalanceToDeliver", headerName: "Balance to Deliver", width: 165 },
+  {
+    id: 9, field: "BalanceToDeliver", headerName: "Balance to Deliver", width: 165, align: 'right', valueFormatter: (params) => {
+      const formattedQuantity = Number(params.value).toLocaleString();
+      return formattedQuantity;
+    },
+  },
   {
     id: 10,
     field: "OCDate",
