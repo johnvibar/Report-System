@@ -33,7 +33,7 @@ export const poDetailColumns = [
       return date.toLocaleDateString('en-US', options);
     },
   },
-  { id: 3, field: "SOStatus", headerName: "SO Status", width: 129 },
+  { id: 3, field: "SOStatus", headerName: "Status", width: 129 },
   {
     id: 4, field: "CustomerPartNumber",
     headerName: "Customer Part #",
@@ -44,9 +44,12 @@ export const poDetailColumns = [
     headerName: "P.N Description",
     width: 214,
   },
-  { id: 6, field: "QtySo", headerName: "QTY SO", width: 129 },
+  { id: 6, field: "QtySo", headerName: "Order QT", width: 129 },
+  {id: 7, field: "Units", headerName: "Units", width: 50},  
+  { id: 8, field: "AmountDelivered", headerName: "Amount Delivered", width: 170 },
+  { id: 9, field: "BalanceToDeliver", headerName: "Balance to Deliver", width: 165 },
   {
-    id: 7,
+    id: 10,
     field: "OCDate",
     headerName: "OC Delivery Date",
     width: 168,
@@ -59,10 +62,8 @@ export const poDetailColumns = [
       return date.toLocaleDateString('en-US', options);
     },
   },
-  { id: 8, field: "AmountDelivered", headerName: "Amount Delivered", width: 170 },
-  { id: 9, field: "BalanceToDeliver", headerName: "Balance to Deliver", width: 165 },
   {
-    id: 10, field: "UpdatedDeliveryDate",
+    id: 11, field: "UpdatedDeliveryDate",
     headerName: "Updated Delivery D.",
     width: 196,
     renderCell: (params) => {
@@ -79,5 +80,5 @@ export const poDetailColumns = [
 export const deliveryColumns = [
   { id: 1, field: "DeliveryDate", headerName: "Delivery Date", width: 200 },
   { id: 2, field: "AmountDelivered", headerName: "Amount Deliverd", width: 200 },
-  { id: 3, field: "AccumulatedAmount", headerName: "Accumulated Total Delivered", width: 200 },
+  { id: 3, field: "AccumulatedAmount", headerName: "Accumulated Delivered", width: 200 },
 ];
