@@ -170,6 +170,9 @@ const OrderDetailScreen = (props) => {
             }}
           />
         </Box>
+        <Button sx={{ fontSize: 12, color: "#000000", position: 'absolute', top: 90, right: 50 }} onClick={() => window.location.reload(false)}>
+          Clear All Filters
+        </Button>
       </Stack>
 
       <Modal

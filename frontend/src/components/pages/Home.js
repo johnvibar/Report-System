@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 import { DataGrid, GridOverlay } from "@mui/x-data-grid";
-import { Box, Stack, Typography, CircularProgress } from "@mui/material";
+import { Box, Stack, Typography, CircularProgress, Button } from "@mui/material";
 import { orderColumns } from "../../constants/column.constants";
 import axios from "axios";
 import { AuthToken } from "../../auth/AuthToken";
@@ -113,6 +113,9 @@ const HomeScreen = () => {
             }}
           />
         </Box>
+        <Button sx={{ fontSize: 12, color: "#000000", position: 'absolute', top: 90, right: 50 }} onClick={() => window.location.reload(false)}>
+          Clear All Filters
+        </Button>
       </Stack>
     </>
   );
