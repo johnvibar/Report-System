@@ -91,7 +91,7 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              placeholder="shlomi@tipa-corp.com"
+              placeholder="email"
               name="email"
               autoComplete="email"
               autoFocus

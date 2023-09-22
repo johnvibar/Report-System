@@ -27,7 +27,7 @@ export const orderColumns = [
     },
   },
   { id: 3, field: "customerName", headerName: "Customer Name", width: 200 },
-  { id: 4, field: "TotalQtySo", headerName: "PO Value", align: 'right' },
+  { id: 4, field: "TotalQtySo", headerName: "PO Value", width: 200, align: 'right' },
 ];
 
 export const poDetailColumns = [
