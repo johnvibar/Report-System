@@ -1,4 +1,4 @@
-# Tipa Report System
+# Report System
 
 ## Clone the Project
 
